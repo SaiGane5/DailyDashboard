@@ -10,7 +10,7 @@ export default function Weather() {
     const fetchWeather = async () => {
       try {
         const response = await fetch(
-          `https://api.weatherapi.com/v1/forecast.json?key=${api_key}&q=auto:ip&days=3`
+          `https://api.weatherapi.com/v1/forecast.json?key=${api_key}&q=chennai&days=3`
         );
         const data = await response.json();
         setWeather({

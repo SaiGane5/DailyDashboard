@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Cloud, CloudRain, Sun, Loader } from 'lucide-react';
 import type { Weather as WeatherType } from '../types';
-import dotenv from 'dotenv';
-
-dotenv.config();
 const api_key = process.env.WEATHER_API_KEY
 export default function Weather() {
   const [weather, setWeather] = useState<WeatherType | null>(null);

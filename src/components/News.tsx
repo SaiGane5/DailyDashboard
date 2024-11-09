@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Newspaper, ChevronRight } from 'lucide-react';
 import type { NewsItem } from '../types';
-import dotenv from 'dotenv';
 
-dotenv.config();
+const api_key = process.env.REACT_APP_NEWS_API_KEY;
 
-const api_key = process.env.NEWS_API_KEY;
 export default function News() {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -19,6 +17,11 @@ export default function News() {
         const response = await fetch(
           `https://newsapi.org/v2/top-headlines?country=us&category=${activeCategory}&apiKey=${api_key}`
         );
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch news');
+        }
+
         const data = await response.json();
         setNews(
           data.articles.map((article: any) => ({
@@ -52,11 +55,10 @@ export default function News() {
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`px-3 py-1 rounded-full text-sm ${
-                activeCategory === category
+              className={`px-3 py-1 rounded-full text-sm ${activeCategory === category
                   ? 'bg-blue-500 text-white'
                   : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
-              }`}
+                }`}
             >
               {category.charAt(0).toUpperCase() + category.slice(1)}
             </button>

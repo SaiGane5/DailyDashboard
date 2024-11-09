@@ -2,26 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { Newspaper, ChevronRight } from 'lucide-react';
 import type { NewsItem } from '../types';
 
-const api_key = process.env.REACT_APP_NEWS_API_KEY;
+// If using Vite
+const api_key = import.meta.env.VITE_NEWS_API_KEY;
+// If using Create React App, use:
+// const api_key = process.env.REACT_APP_NEWS_API_KEY;
 
 export default function News() {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('business');
-
   const categories = ['business', 'technology', 'sports', 'entertainment'];
 
   useEffect(() => {
     const fetchNews = async () => {
+      // Check if API key exists
+      if (!api_key) {
+        console.error('News API key is not defined');
+        setLoading(false);
+        return;
+      }
+
       try {
         const response = await fetch(
           `https://newsapi.org/v2/top-headlines?country=us&category=${activeCategory}&apiKey=${api_key}`
         );
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch news');
-        }
-
         const data = await response.json();
         setNews(
           data.articles.map((article: any) => ({
@@ -65,7 +69,6 @@ export default function News() {
           ))}
         </div>
       </div>
-
       <div className="space-y-4">
         {loading ? (
           <div className="animate-pulse space-y-4">

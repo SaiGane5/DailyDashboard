@@ -27,7 +27,7 @@ export default function News() {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('top');
-  const [activeCountry, setActiveCountry] = useState('us');
+  const [activeCountry, setActiveCountry] = useState('in');
 
   const categories = ['top', 'business', 'technology', 'sports', 'entertainment'];
   const countries = [
@@ -183,7 +183,7 @@ export default function News() {
 
                   <div className="mt-3 space-y-2">
                     {/* Entity Tags */}
-                    <div className="flex flex-wrap gap-2">
+                    {/* <div className="flex flex-wrap gap-2">
                       {Array.isArray(item.ai_region) && item.ai_region.map((region) => (
                         <span key={region} className="inline-flex items-center px-2 py-1 rounded text-xs bg-blue-100 text-blue-800">
                           <Globe className="w-3 h-3 mr-1" />
@@ -196,16 +196,16 @@ export default function News() {
                           {tag}
                         </span>
                       ))}
-                    </div>
+                    </div> */}
 
                     {/* Sentiment Analysis */}
-                    <div className="flex items-center gap-2">
+                    {/* <div className="flex items-center gap-2">
                       <span className={`inline-flex items-center px-2 py-1 rounded text-xs ${getSentimentColor(item.sentiment)}`}>
                         <Activity className="w-3 h-3 mr-1" />
                         {item.sentiment}
                       </span>
                       {item.sentiment_stats && renderSentimentBar(item.sentiment_stats)}
-                    </div>
+                    </div> */}
 
                     <p className="text-xs text-gray-400 dark:text-gray-500">
                       {new Date(item.pubDate).toLocaleString()}
